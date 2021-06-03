@@ -63,10 +63,10 @@ public class HomeNewsFragment extends Fragment {
         from = String.valueOf(cal.getTime());
 
         Log.i(TAG, "onCreateView: " + to + " " + from);
-        viewModel.makeCall(from, to);
+//        viewModel.makeCall(from, to);
 
         swipe.setOnRefreshListener(() -> {
-            viewModel.makeCall(from, to);
+//            viewModel.makeCall(from, to);
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             new Handler().postDelayed(() -> {
