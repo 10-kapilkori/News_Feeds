@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:background="#DC1717"
-        app:layout_collapseMode="pin"
         android:theme="@style/ToolbarTitle"
         app:titleTextColor="@color/white" />
 

@@ -1,6 +1,7 @@
 package com.task.newsapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -141,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_search:
                 Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SearchActivity.class));
                 return true;
             case R.id.action_about:
                 Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();

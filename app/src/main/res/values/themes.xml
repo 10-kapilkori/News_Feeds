@@ -44,4 +44,9 @@
         <item name="android:fontFamily">@font/quicksand_bold</item>
         <item name="android:textSize">24sp</item>
     </style>
+
+    <style name="ToolbarSearch">
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
