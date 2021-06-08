@@ -117,4 +117,5 @@
     <string name="search">Search</string>
     <string name="about">About</string>
     <string name="search_news">Search News</string>
+    <string name="default_result">Default Result</string>
 </resources>

@@ -61,4 +61,11 @@ public interface API {
             @Query("language") String language,
             @Query("pageSize") String pageSize
     );
+
+    @GET("v2/everything")
+    Call<NewsModel> getSearchedNews(
+            @Query("apiKey") String apiKey,
+            @Query("q") String q,
+            @Query("pageSize") String pageSize
+    );
 }

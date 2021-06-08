@@ -1,4 +1,4 @@
-package com.task.newsapp.ui.technology;
+package com.task.newsapp.viewmodel;
 
 import android.util.Log;
 
@@ -13,13 +13,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TechnologyFragmentViewModel extends ViewModel {
-    private static final String TAG = "TechnologyFragmentViewM";
+public class QueryViewModel extends ViewModel {
+    private static final String TAG = "QueryViewModel";
 
     private final MutableLiveData<NewsModel> modelMutableLiveData;
     private final MutableLiveData<String> errorMutableLiveData;
 
-    public TechnologyFragmentViewModel() {
+    public QueryViewModel() {
         modelMutableLiveData = new MutableLiveData<>();
         errorMutableLiveData = new MutableLiveData<>();
     }
@@ -32,9 +32,9 @@ public class TechnologyFragmentViewModel extends ViewModel {
         return errorMutableLiveData;
     }
 
-    public void makeCall() {
+    public void query(String q) {
         API api = new RetrofitInstance().getInstance().create(API.class);
-        Call<NewsModel> call = api.getTechnologyNews("Technology", "a69420c4ab5a41359149947df1bf1340", "en", "30");
+        Call<NewsModel> call = api.getSearchedNews("a69420c4ab5a41359149947df1bf1340", q, "30");
 
         call.enqueue(new Callback<NewsModel>() {
             @Override
