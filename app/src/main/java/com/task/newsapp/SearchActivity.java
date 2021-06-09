@@ -3,7 +3,6 @@ package com.task.newsapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -14,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.task.newsapp.adapter_viewholder.SearchAdapter;
 import com.task.newsapp.model.ArticlesModel;
 import com.task.newsapp.viewmodel.QueryViewModel;
 
@@ -25,10 +27,12 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
 
     SearchView searchView;
+    RecyclerView recyclerView;
     Toolbar toolbar;
     TextView no_result, query_tv;
     ProgressBar searchPb;
     QueryViewModel queryViewModel;
+    SearchAdapter adapter;
     List<ArticlesModel> list;
 
     @Override
@@ -38,11 +42,13 @@ public class SearchActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.search_toolbar);
         searchView = findViewById(R.id.search_bar);
+        recyclerView = findViewById(R.id.search_recycler_view);
         no_result = findViewById(R.id.default_result);
         searchPb = findViewById(R.id.searchProgressBar);
         query_tv = findViewById(R.id.queryTv);
         queryViewModel = new ViewModelProvider(this).get(QueryViewModel.class);
         list = new ArrayList<>();
+        adapter = new SearchAdapter(this, list);
 
         setSupportActionBar(toolbar);
 
@@ -55,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
-//                queryViewModel.query(q);
+                queryViewModel.query(q);
                 searchPb.setVisibility(View.VISIBLE);
                 query_tv.setVisibility(View.VISIBLE);
 
@@ -72,8 +78,11 @@ public class SearchActivity extends AppCompatActivity {
         queryViewModel.getModelMutableLiveData().observe(this, newsModel -> {
             list = newsModel.getArticles();
             searchPb.setVisibility(View.GONE);
+            adapter.updatedList(list);
         });
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         setTitle("");
     }
 }

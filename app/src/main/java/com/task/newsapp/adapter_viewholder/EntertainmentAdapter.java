@@ -105,9 +105,6 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             e.printStackTrace();
         }
 
-        if (entertainmentList.get(position).getUrlToImage() == null)
-            holder.newsProgressBar.setVisibility(View.GONE);
-
         Glide.with(context)
                 .load(entertainmentList.get(position).getUrlToImage())
                 .error(R.drawable.ic_baseline_image_24)
