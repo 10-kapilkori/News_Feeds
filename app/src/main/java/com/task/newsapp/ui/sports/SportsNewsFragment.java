@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.SportsAdapter;
@@ -28,6 +31,8 @@ public class SportsNewsFragment extends Fragment {
     RecyclerView recyclerView;
     ProgressBar sportsProgressBar;
     SwipeRefreshLayout swipe;
+    ImageView offlineIv;
+    TextView offlineTv;
     List<ArticlesModel> list;
     SportsAdapter adapter;
     SportsFragmentViewModel viewModel;
@@ -39,9 +44,16 @@ public class SportsNewsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.sports_recyclerView);
         sportsProgressBar = view.findViewById(R.id.sportsProgressBar);
         swipe = view.findViewById(R.id.sports_swipe_refresh);
+        offlineIv = view.findViewById(R.id.sportsOfflineIv);
+        offlineTv = view.findViewById(R.id.sportsOfflineTv);
         list = new ArrayList<>();
         adapter = new SportsAdapter(getContext(), list);
         viewModel = new ViewModelProvider(this).get(SportsFragmentViewModel.class);
+
+        viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
+            sportsProgressBar.setVisibility(View.GONE);
+            checkErrors(s);
+        });
 
         viewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {
             list = newsModel.getArticles();
@@ -64,5 +76,17 @@ public class SportsNewsFragment extends Fragment {
 
         viewModel.makeCall();
         return view;
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname")) {
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("Software caused connection abort")) {
+            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("timeout"))
+            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
     }
 }

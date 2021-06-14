@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,9 +33,11 @@ public class PoliticsNewsFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar politicsProgressBar;
+    SwipeRefreshLayout swipe;
+    ImageView offlineIv;
+    TextView offlineTv;
     List<ArticlesModel> list;
     PoliticsAdapter adapter;
-    SwipeRefreshLayout swipe;
     PoliticsFragmentViewModel politicsViewModel;
 
     @Override
@@ -42,6 +47,8 @@ public class PoliticsNewsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.politics_recyclerView);
         politicsProgressBar = view.findViewById(R.id.politicsProgressBar);
         swipe = view.findViewById(R.id.politics_swipe_refresh);
+        offlineIv = view.findViewById(R.id.politicsOfflineIv);
+        offlineTv = view.findViewById(R.id.politicsOfflineTv);
         list = new ArrayList<>();
         politicsViewModel = new ViewModelProvider(this).get(PoliticsFragmentViewModel.class);
         adapter = new PoliticsAdapter(getContext(), list);
@@ -53,7 +60,7 @@ public class PoliticsNewsFragment extends Fragment {
         });
 
         politicsViewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
-            Log.i(TAG, "onCreateView: " + s);
+            checkErrors(s);
             politicsProgressBar.setVisibility(View.GONE);
         });
 
@@ -80,5 +87,17 @@ public class PoliticsNewsFragment extends Fragment {
         politicsViewModel.makeCall(from, to);
 
         return view;
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname")) {
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("Software caused connection abort")) {
+            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("timeout"))
+            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
     }
 }

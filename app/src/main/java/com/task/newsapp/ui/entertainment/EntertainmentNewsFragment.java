@@ -1,19 +1,21 @@
 package com.task.newsapp.ui.entertainment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.EntertainmentAdapter;
@@ -26,11 +28,13 @@ public class EntertainmentNewsFragment extends Fragment {
     private static final String TAG = "EntertainmentFragment";
 
     RecyclerView recyclerView;
+    SwipeRefreshLayout swipe;
+    ImageView offlineIv;
+    TextView offlineTv;
     List<ArticlesModel> list;
     ProgressBar entertainmentProgressBar;
     EntertainmentFragmentViewModel viewModel;
     EntertainmentAdapter adapter;
-    SwipeRefreshLayout swipe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,9 +43,16 @@ public class EntertainmentNewsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.entertainment_recyclerView);
         entertainmentProgressBar = view.findViewById(R.id.entertainmentProgressBar);
         swipe = view.findViewById(R.id.entertainment_swipe_refresh);
+        offlineIv = view.findViewById(R.id.entertainmentOfflineIv);
+        offlineTv = view.findViewById(R.id.entertainmentOfflineTv);
         viewModel = new ViewModelProvider(this).get(EntertainmentFragmentViewModel.class);
         list = new ArrayList<>();
         adapter = new EntertainmentAdapter(getContext(), list);
+
+        viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
+            checkErrors(s);
+            entertainmentProgressBar.setVisibility(View.GONE);
+        });
 
         viewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {
             list = newsModel.getArticles();
@@ -63,5 +74,17 @@ public class EntertainmentNewsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         return view;
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname")) {
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("Software caused connection abort")) {
+            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("timeout"))
+            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
     }
 }

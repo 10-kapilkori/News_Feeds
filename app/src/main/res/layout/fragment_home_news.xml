@@ -15,13 +15,41 @@
             android:id="@+id/progressBar"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="190dp"
-            android:layout_marginTop="250dp"
+            android:layout_gravity="center"
             android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/homeOfflineIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="155dp"
+                android:layout_marginTop="200dp"
+                android:src="@drawable/ic_news_logo"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/homeOfflineTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/homeOfflineIv"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="150dp"
+                android:fontFamily="@font/rajdhani_regular"
+                android:text="@string/you_are_offline"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

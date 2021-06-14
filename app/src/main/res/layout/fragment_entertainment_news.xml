@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/entertainment_swipe_refresh"
     android:layout_width="match_parent"
@@ -16,13 +15,42 @@
             android:id="@+id/entertainmentProgressBar"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="190dp"
-            android:layout_marginTop="250dp"
+            android:layout_gravity="center"
             android:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/entertainment_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/entertainmentOfflineIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="155dp"
+                android:layout_marginTop="200dp"
+                android:src="@drawable/ic_news_logo"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/entertainmentOfflineTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/entertainmentOfflineIv"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="150dp"
+                android:fontFamily="@font/rajdhani_regular"
+                android:text="@string/you_are_offline"
+                android:textSize="20sp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

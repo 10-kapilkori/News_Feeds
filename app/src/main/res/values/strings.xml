@@ -118,4 +118,5 @@
     <string name="about">About</string>
     <string name="search_news">Search News</string>
     <string name="default_result">Default Result</string>
+    <string name="you_are_offline">You are Offline</string>
 </resources>

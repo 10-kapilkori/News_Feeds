@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +31,8 @@ public class TopHeadlinesNewsFragment extends Fragment {
     TopHeadlinesFragmentViewModel viewModel;
     RecyclerView newsRecyclerView;
     ProgressBar topProgressBar;
+    ImageView offlineIv;
+    TextView offlineTv;
     SwipeRefreshLayout swipe;
     List<ArticlesModel> topHeadlinesModelList;
     TopHeadlinesAdapter adapter;
@@ -37,22 +42,23 @@ public class TopHeadlinesNewsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_top_headlines_news, container, false);
 
-        viewModel = new ViewModelProvider(this).get(TopHeadlinesFragmentViewModel.class);
         newsRecyclerView = view.findViewById(R.id.top_recyclerView);
         swipe = view.findViewById(R.id.top_swipe_refresh);
-        topHeadlinesModelList = new ArrayList<>();
         topProgressBar = view.findViewById(R.id.topProgressBar);
+        offlineIv = view.findViewById(R.id.topOfflineIv);
+        offlineTv = view.findViewById(R.id.topOfflineTv);
+        topHeadlinesModelList = new ArrayList<>();
+        viewModel = new ViewModelProvider(this).get(TopHeadlinesFragmentViewModel.class);
 
         viewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), topHeadlinesResponseModel -> {
-            Log.i(TAG, "onCreateView: " + topHeadlinesResponseModel.getStatus());
-
             topHeadlinesModelList = topHeadlinesResponseModel.getArticles();
             adapter.setUpdatedList(topHeadlinesModelList);
             topProgressBar.setVisibility(View.GONE);
         });
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
-//
+            topProgressBar.setVisibility(View.GONE);
+            checkErrors(s);
             Log.i(TAG, "onCreateView: " + s);
         });
 /*
@@ -79,5 +85,17 @@ public class TopHeadlinesNewsFragment extends Fragment {
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.setAdapter(adapter);
         return view;
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname")) {
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("Software caused connection abort")) {
+            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("timeout"))
+            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
     }
 }

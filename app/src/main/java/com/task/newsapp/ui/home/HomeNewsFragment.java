@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,11 +32,13 @@ public class HomeNewsFragment extends Fragment {
     private static final String TAG = "HomeNewsFragment";
 
     HomeFragmentViewModel viewModel;
-    List<ArticlesModel> list;
-    NewsAdapter adapter;
     SwipeRefreshLayout swipe;
     RecyclerView homeRecyclerView;
     ProgressBar progressBar;
+    ImageView offlineIv;
+    TextView offlineTv;
+    List<ArticlesModel> list;
+    NewsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +47,8 @@ public class HomeNewsFragment extends Fragment {
 
         homeRecyclerView = view.findViewById(R.id.home_recyclerView);
         progressBar = view.findViewById(R.id.progressBar);
+        offlineIv = view.findViewById(R.id.homeOfflineIv);
+        offlineTv = view.findViewById(R.id.homeOfflineTv);
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
         list = new ArrayList<>();
         swipe = view.findViewById(R.id.home_swipe_refresh);
@@ -54,6 +61,10 @@ public class HomeNewsFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         });
 
+        viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
+            checkErrors(s);
+            progressBar.setVisibility(View.GONE);
+        });
 
         String from, to;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd", Locale.getDefault());
@@ -77,5 +88,17 @@ public class HomeNewsFragment extends Fragment {
 
         homeRecyclerView.setAdapter(adapter);
         return view;
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname")) {
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("Software caused connection abort")) {
+            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            offlineIv.setVisibility(View.VISIBLE);
+            offlineTv.setVisibility(View.VISIBLE);
+        } else if (error.contains("timeout"))
+            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
     }
 }
