@@ -1,14 +1,19 @@
 package com.task.newsapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -31,8 +36,9 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView no_result, query_tv;
     ProgressBar searchPb;
-    QueryViewModel queryViewModel;
+
     SearchAdapter adapter;
+    QueryViewModel queryViewModel;
     List<ArticlesModel> list;
 
     @Override
@@ -78,11 +84,37 @@ public class SearchActivity extends AppCompatActivity {
         queryViewModel.getModelMutableLiveData().observe(this, newsModel -> {
             list = newsModel.getArticles();
             searchPb.setVisibility(View.GONE);
+
+            if (list.size() == 0) {
+                new AlertDialog.Builder(this)
+                        .setView(getLayoutInflater().inflate(R.layout.custom_dialog, null))
+                        .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
             adapter.updatedList(list);
+        });
+
+        queryViewModel.getErrorMutableLiveData().observe(this, s -> {
+
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
         setTitle("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_close, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_close)
+            finish();
+
+        return super.onOptionsItemSelected(item);
     }
 }

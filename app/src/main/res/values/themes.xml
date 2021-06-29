@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.NewsApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/light_red</item>
         <item name="colorPrimaryVariant">#B51111</item>
         <item name="colorOnPrimary">#403F3F</item>
         <!-- Secondary brand color. -->
@@ -39,6 +39,7 @@
     <style name="NavigationText" parent="@android:style/TextAppearance.Medium">
         <item name="android:fontFamily">@font/quicksand_light</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dim_black</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -46,7 +47,7 @@
         <item name="android:fontFamily">@font/quicksand_bold</item>
         <item name="android:textSize">24sp</item>
     </style>
-t
+
     <style name="ToolbarSearch">
         <item name="android:fontFamily">@font/quicksand_bold</item>
         <item name="android:textSize">18sp</item>

@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
-                            .replace(R.id.fragment_container, new HomeNewsFragment())
+                            .setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim)
                             .commit();
                     toolbar.setTitle("Home");
                     drawerLayout.closeDrawer(GravityCompat.START);
