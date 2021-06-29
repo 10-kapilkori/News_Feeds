@@ -2,7 +2,6 @@ package com.task.newsapp.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +28,18 @@ import java.util.List;
 import java.util.Locale;
 
 public class HomeNewsFragment extends Fragment {
-    private static final String TAG = "HomeNewsFragment";
-
     HomeFragmentViewModel viewModel;
     SwipeRefreshLayout swipe;
     RecyclerView homeRecyclerView;
     ProgressBar progressBar;
     ImageView offlineIv;
     TextView offlineTv;
+    SimpleDateFormat sdf;
+    Calendar cal;
+
     List<ArticlesModel> list;
     NewsAdapter adapter;
+    String from, to;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,18 +67,16 @@ public class HomeNewsFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         });
 
-        String from, to;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd", Locale.getDefault());
-        Calendar cal = Calendar.getInstance();
+        sdf = new SimpleDateFormat("yyyy MM dd", Locale.getDefault());
+        cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         to = sdf.format(Calendar.getInstance().getTime());
         from = String.valueOf(cal.getTime());
 
-        Log.i(TAG, "onCreateView: " + to + " " + from);
-//        viewModel.makeCall(from, to);
+        viewModel.makeCall(from, to);
 
         swipe.setOnRefreshListener(() -> {
-//            viewModel.makeCall(from, to);
+            viewModel.makeCall(from, to);
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             new Handler().postDelayed(() -> {
