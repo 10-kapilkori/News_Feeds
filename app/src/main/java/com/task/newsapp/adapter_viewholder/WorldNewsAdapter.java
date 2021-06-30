@@ -26,8 +26,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class WorldNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
-    private static final String TAG = "WorldNewsAdapter";
-
     Context context;
     List<ArticlesModel> newsModel;
 
@@ -88,8 +86,11 @@ public class WorldNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
             Date d1 = sdf1.parse(to);
             Date d2 = sdf1.parse(from);
+            long diff2 = 0;
 
-            long diff2 = d1.getTime() - d2.getTime();
+            if (d1 != null && d2 != null)
+                diff2 = d1.getTime() - d2.getTime();
+
             boolean hours = String.valueOf(diff2).contains("-");
 
             if (hours) {

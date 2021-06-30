@@ -66,16 +66,4 @@ public class DetailsActivity extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }                                                                    TODO                   this and above both method will do the same for back arrow functionality
-        return super.onOptionsItemSelected(item);
-    }
-*/
-
 }

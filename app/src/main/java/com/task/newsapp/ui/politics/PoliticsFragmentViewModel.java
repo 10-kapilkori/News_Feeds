@@ -34,7 +34,12 @@ public class PoliticsFragmentViewModel extends ViewModel {
 
     public void makeCall(String from, String to) {
         API api = new RetrofitInstance().getInstance().create(API.class);
-        Call<NewsModel> call = api.getPoliticsNews("india politics", "a69420c4ab5a41359149947df1bf1340", from, to, "publishedAt", "30", "en");
+        Call<NewsModel> call = api.getPoliticsNews("india politics",
+                "a69420c4ab5a41359149947df1bf1340",
+                from, to,
+                "publishedAt",
+                "30",
+                "en");
 
         call.enqueue(new Callback<NewsModel>() {
             @Override

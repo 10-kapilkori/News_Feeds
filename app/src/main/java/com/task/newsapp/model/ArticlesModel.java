@@ -40,10 +40,6 @@ public class ArticlesModel {
         return urlToImage;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public String getDescription() {
         return description;
     }

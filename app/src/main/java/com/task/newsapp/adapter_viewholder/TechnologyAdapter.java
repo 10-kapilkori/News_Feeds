@@ -83,8 +83,11 @@ public class TechnologyAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         try {
             Date d1 = sdf1.parse(to);
             Date d2 = sdf1.parse(from);
+            long diff2 = 0;
 
-            long diff2 = d1.getTime() - d2.getTime();
+            if (d1 != null && d2 != null)
+                diff2 = d1.getTime() - d2.getTime();
+
             boolean hours = String.valueOf(diff2).contains("-");
 
             if (hours) {

@@ -32,9 +32,9 @@ public class QueryViewModel extends ViewModel {
         return errorMutableLiveData;
     }
 
-    public void query(String q) {
+    public void query(String query) {
         API api = new RetrofitInstance().getInstance().create(API.class);
-        Call<NewsModel> call = api.getSearchedNews("a69420c4ab5a41359149947df1bf1340", q, "30");
+        Call<NewsModel> call = api.getSearchedNews("a69420c4ab5a41359149947df1bf1340", query, "30");
 
         call.enqueue(new Callback<NewsModel>() {
             @Override

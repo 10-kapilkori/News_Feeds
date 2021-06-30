@@ -34,7 +34,10 @@ public class SportsFragmentViewModel extends ViewModel {
 
     public void makeCall() {
         API api = new RetrofitInstance().getInstance().create(API.class);
-        Call<NewsModel> call = api.getEntertainmentNews("Sports", "a69420c4ab5a41359149947df1bf1340", "en", "30");
+        Call<NewsModel> call = api.getEntertainmentNews("Sports",
+                "a69420c4ab5a41359149947df1bf1340",
+                "en",
+                "30");
 
         call.enqueue(new Callback<NewsModel>() {
             @Override
