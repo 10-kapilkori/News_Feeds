@@ -1,5 +1,6 @@
 package com.task.newsapp.ui.sports;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -79,14 +80,19 @@ public class SportsNewsFragment extends Fragment {
     }
 
     private void checkErrors(String error) {
-        if (error.contains("No address associated with hostname")) {
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("Software caused connection abort")) {
-            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("timeout"))
-            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
+        if (error.contains("No address associated with hostname") ||
+                error.contains("Software caused connection abort")) {
+
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_dialog, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else if (error.contains("timeout")) {
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_timeout, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
     }
 }

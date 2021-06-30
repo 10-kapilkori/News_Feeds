@@ -22,34 +22,5 @@
             android:id="@+id/world_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/worldOfflineIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="240dp"
-                android:layout_marginStart="155dp"
-                android:src="@drawable/ic_news_logo"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/worldOfflineTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/worldOfflineIv"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="150dp"
-                android:fontFamily="@font/rajdhani_regular"
-                android:text="@string/you_are_offline"
-                android:textSize="20sp"
-                android:visibility="gone" />
-        </RelativeLayout>
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

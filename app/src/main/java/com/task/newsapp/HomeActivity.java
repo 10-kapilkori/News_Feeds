@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
                             .setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim)
+                            .replace(R.id.fragment_container, new HomeNewsFragment())
                             .commit();
                     toolbar.setTitle("Home");
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -69,9 +70,8 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("Top Headlines");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "Top Headlines News Fragment", Toast.LENGTH_SHORT).show();
-
                     break;
+
                 case R.id.nav_world:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
@@ -79,9 +79,8 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("World");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "World News Fragment", Toast.LENGTH_SHORT).show();
-
                     break;
+
                 case R.id.nav_politics:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
@@ -89,8 +88,6 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("Politics");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "Politics News Fragment", Toast.LENGTH_SHORT).show();
-
                     break;
 
                 case R.id.nav_entertainment:
@@ -100,8 +97,6 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("Entertainment");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "Entertainment News Fragment", Toast.LENGTH_SHORT).show();
-
                     break;
 
                 case R.id.nav_sports:
@@ -111,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("Sports");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "Sports News Fragment", Toast.LENGTH_SHORT).show();
                     break;
 
                 case R.id.nav_technology:
@@ -121,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                             .commit();
                     toolbar.setTitle("Technology");
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    Toast.makeText(this, "Technology News Fragment", Toast.LENGTH_SHORT).show();
+                    break;
 
                 default:
                     break;

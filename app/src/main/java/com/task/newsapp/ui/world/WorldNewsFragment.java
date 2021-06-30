@@ -1,15 +1,15 @@
 package com.task.newsapp.ui.world;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -32,26 +32,25 @@ public class WorldNewsFragment extends Fragment {
 
     WorldFragmentViewModel worldFragmentViewModel;
     RecyclerView worldRecyclerView;
-    ImageView offlineIv;
-    TextView offlineTv;
     ProgressBar worldNewsProgressBar;
-    List<ArticlesModel> list;
     SwipeRefreshLayout swipe;
+    View view;
+
+    List<ArticlesModel> list;
     WorldNewsAdapter adapter;
+    String from, to, error;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_world_news, container, false);
-
-        offlineIv = view.findViewById(R.id.worldOfflineIv);
-        offlineTv = view.findViewById(R.id.worldOfflineTv);
+        view = inflater.inflate(R.layout.fragment_world_news, container, false);
         worldNewsProgressBar = view.findViewById(R.id.worldProgressBar);
         worldRecyclerView = view.findViewById(R.id.world_recyclerView);
         swipe = view.findViewById(R.id.world_swipe_refresh);
-        worldFragmentViewModel = new ViewModelProvider(this).get(WorldFragmentViewModel.class);
+
         list = new ArrayList<>();
         adapter = new WorldNewsAdapter(getContext(), list);
+        worldFragmentViewModel = new ViewModelProvider(this).get(WorldFragmentViewModel.class);
 
         worldFragmentViewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), topHeadlines -> {
             list = topHeadlines.getArticles();
@@ -64,7 +63,6 @@ public class WorldNewsFragment extends Fragment {
             checkErrors(s);
         });
 
-        String from, to;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd", Locale.getDefault());
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
@@ -90,14 +88,19 @@ public class WorldNewsFragment extends Fragment {
     }
 
     private void checkErrors(String error) {
-        if (error.contains("No address associated with hostname")) {
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("Software caused connection abort")) {
-            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("timeout"))
-            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
+        if (error.contains("No address associated with hostname") ||
+                error.contains("Software caused connection abort")) {
+
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_dialog, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else if (error.contains("timeout")) {
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_timeout, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.task.newsapp.ui.entertainment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntertainmentNewsFragment extends Fragment {
-    private static final String TAG = "EntertainmentFragment";
-
     RecyclerView recyclerView;
     SwipeRefreshLayout swipe;
     ImageView offlineIv;
@@ -77,14 +75,19 @@ public class EntertainmentNewsFragment extends Fragment {
     }
 
     private void checkErrors(String error) {
-        if (error.contains("No address associated with hostname")) {
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("Software caused connection abort")) {
-            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("timeout"))
-            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
+        if (error.contains("No address associated with hostname") ||
+                error.contains("Software caused connection abort")) {
+
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_dialog, null))
+                    .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else if (error.contains("timeout")) {
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_timeout, null))
+                    .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
     }
 }

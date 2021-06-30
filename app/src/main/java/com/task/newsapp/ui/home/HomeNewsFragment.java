@@ -1,7 +1,9 @@
 package com.task.newsapp.ui.home;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class HomeNewsFragment extends Fragment {
+    private static final String TAG = "HomeNewsFragment";
+
     HomeFragmentViewModel viewModel;
     SwipeRefreshLayout swipe;
     RecyclerView homeRecyclerView;
@@ -50,9 +54,11 @@ public class HomeNewsFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         offlineIv = view.findViewById(R.id.homeOfflineIv);
         offlineTv = view.findViewById(R.id.homeOfflineTv);
+        swipe = view.findViewById(R.id.home_swipe_refresh);
+
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
         list = new ArrayList<>();
-        swipe = view.findViewById(R.id.home_swipe_refresh);
+
         adapter = new NewsAdapter(getContext(), list);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -60,10 +66,12 @@ public class HomeNewsFragment extends Fragment {
             list = newsModel.getArticles();
             adapter.updatedList(list);
             progressBar.setVisibility(View.GONE);
+            Log.i(TAG, "onCreateView: hello");
         });
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             checkErrors(s);
+            Log.e(TAG, "onCreateView: " + s);
             progressBar.setVisibility(View.GONE);
         });
 
@@ -90,14 +98,19 @@ public class HomeNewsFragment extends Fragment {
     }
 
     private void checkErrors(String error) {
-        if (error.contains("No address associated with hostname")) {
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("Software caused connection abort")) {
-            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            offlineIv.setVisibility(View.VISIBLE);
-            offlineTv.setVisibility(View.VISIBLE);
-        } else if (error.contains("timeout"))
-            Toast.makeText(getContext(), "Request timeout", Toast.LENGTH_SHORT).show();
+        if (error.contains("No address associated with hostname") ||
+                error.contains("Software caused connection abort")) {
+
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_dialog, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else if (error.contains("timeout")) {
+            new AlertDialog.Builder(getContext())
+                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_timeout, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
     }
 }

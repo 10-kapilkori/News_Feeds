@@ -16,7 +16,7 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:editTextColor">@color/white</item>
     </style>
-
+A
     <style name="Theme.NewsApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
