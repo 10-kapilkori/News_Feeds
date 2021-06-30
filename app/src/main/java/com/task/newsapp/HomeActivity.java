@@ -1,6 +1,7 @@
 package com.task.newsapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -135,11 +136,13 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
             case R.id.action_about:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(this)
+                        .setView(getLayoutInflater().inflate(R.layout.custom_about, null))
+                        .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
+                        .show();
                 return true;
             default:
                 return false;

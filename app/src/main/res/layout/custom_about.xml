@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/abt_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_news_logo" />
+
+    <TextView
+        android:id="@+id/abt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/abt_logo"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/about"
+        android:textColor="@color/title_black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/abt_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_logo"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/app"
+        android:textColor="@color/dim_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/abt_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_app_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/v"
+        android:textColor="@color/dim_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/abt_developed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_version"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/dev"
+        android:textColor="@color/dim_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/abt_dash"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/abt_developed"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/dash"
+        android:textColor="@color/dim_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/abt_third_parties"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_dash"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/third"
+        android:textColor="@color/dim_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/abt_first_dot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ic_baseline_fiber_manual_record_24" />
+
+    <TextView
+        android:id="@+id/abt_first_lib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@id/abt_first_dot"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/first_link"
+        android:textColor="@color/medium_black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/abt_second_dot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/ic_baseline_fiber_manual_record_24" />
+
+    <TextView
+        android:id="@+id/abt_second_lib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_toEndOf="@id/abt_second_dot"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/second_link"
+        android:textColor="@color/medium_black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/abt_third_dot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/ic_baseline_fiber_manual_record_24" />
+
+    <TextView
+        android:id="@+id/abt_third_lib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_third_parties"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:layout_toEndOf="@id/abt_third_dot"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="@string/third_link"
+        android:textColor="@color/medium_black"
+        android:textSize="14sp" />
+</RelativeLayout>

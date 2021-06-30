@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,8 +58,6 @@ public class SearchActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public boolean onQueryTextSubmit(String q) {
-                Toast.makeText(SearchActivity.this, q, Toast.LENGTH_SHORT).show();
-
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
@@ -92,7 +89,8 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         queryViewModel.getErrorMutableLiveData().observe(this, s -> {
-
+            searchPb.setVisibility(View.GONE);
+            checkErrors(s);
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -113,5 +111,22 @@ public class SearchActivity extends AppCompatActivity {
             finish();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkErrors(String error) {
+        if (error.contains("No address associated with hostname") ||
+                error.contains("Software caused connection abort")) {
+
+            new AlertDialog.Builder(this)
+                    .setView(getLayoutInflater().inflate(R.layout.error_dialog, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+
+        } else if (error.contains("timeout")) {
+            new AlertDialog.Builder(this)
+                    .setView(getLayoutInflater().inflate(R.layout.error_timeout, null))
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .show();
+        }
     }
 }

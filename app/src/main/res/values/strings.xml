@@ -123,4 +123,11 @@
     <string name="close">Close</string>
     <string name="internet">Internet Connection Required</string>
     <string name="timeout">Request Timeout</string>
+    <string name="app">News Feeds App</string>
+    <string name="v">Version: 1.0.0</string>
+    <string name="dev">Developed By Group 8</string>
+    <string name="third">Third Party Libraries</string>
+    <string name="first_link">https://newsapi.org/</string>
+    <string name="second_link">https://square.github.io/retrofit/</string>
+    <string name="third_link">https://github.com/bumptech/glide/</string>
 </resources>

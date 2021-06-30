@@ -9,22 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="18dp"
-        android:fontFamily="@font/rajdhani_medium"
+        android:fontFamily="@font/quicksand_medium"
         android:text="@string/no_result_found"
         android:textSize="20sp" />
-
-<!--    <Button-->
-<!--        android:id="@+id/searchNoneBtn"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginTop="44dp"-->
-<!--        android:layout_marginEnd="18dp"-->
-<!--        android:layout_marginBottom="8dp"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:fontFamily="@font/rajdhani_medium"-->
-<!--        android:text="@string/ok"-->
-<!--        android:textColor="@color/light_red"-->
-<!--        android:textSize="15sp" />-->
 </RelativeLayout>
