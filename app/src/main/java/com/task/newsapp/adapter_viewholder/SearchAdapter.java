@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,6 +59,10 @@ public class SearchAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .load(searchList.get(position).getUrlToImage())
                 .error(R.drawable.ic_baseline_image_24)
                 .into(holder.news_img);
+
+        holder.newsDownloadBtn.setOnClickListener(v -> {
+            Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
+        });
 
         holder.itemView.setOnClickListener(v ->
                 context.startActivity(new Intent(context, DetailsActivity.class).

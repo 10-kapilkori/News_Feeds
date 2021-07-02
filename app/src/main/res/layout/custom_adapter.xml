@@ -13,6 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:id="@+id/news_more_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/news_desc"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="14dp"
+            android:background="@color/white"
+            android:contentDescription="@string/more_options"
+            android:paddingTop="8dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="12dp"
+            android:src="@drawable/ic_download_arrow" />
+
         <ProgressBar
             android:id="@+id/imageProgressBar"
             android:layout_width="25dp"

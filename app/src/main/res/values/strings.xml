@@ -130,4 +130,6 @@
     <string name="first_link">https://newsapi.org/</string>
     <string name="second_link">https://square.github.io/retrofit/</string>
     <string name="third_link">https://github.com/bumptech/glide/</string>
+    <string name="download">Download</string>
+    <string name="more_options">more options</string>
 </resources>

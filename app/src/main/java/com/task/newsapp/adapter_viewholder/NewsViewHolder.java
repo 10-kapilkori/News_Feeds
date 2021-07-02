@@ -1,6 +1,7 @@
 package com.task.newsapp.adapter_viewholder;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.task.newsapp.R;
 public class NewsViewHolder extends RecyclerView.ViewHolder {
     TextView news_title, news_date, news_author, news_desc;
     ImageView news_img;
+    ImageButton newsDownloadBtn;
     ProgressBar newsProgressBar;
 
     public NewsViewHolder(@NonNull View itemView) {
@@ -24,5 +26,6 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         news_desc = itemView.findViewById(R.id.news_desc);
         news_img = itemView.findViewById(R.id.news_image);
         newsProgressBar = itemView.findViewById(R.id.imageProgressBar);
+        newsDownloadBtn = itemView.findViewById(R.id.news_more_option);
     }
 }
