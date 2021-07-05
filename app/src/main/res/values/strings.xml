@@ -132,4 +132,5 @@
     <string name="third_link">https://github.com/bumptech/glide/</string>
     <string name="download">Download</string>
     <string name="more_options">more options</string>
+    <string name="saved_news">Saved News</string>
 </resources>

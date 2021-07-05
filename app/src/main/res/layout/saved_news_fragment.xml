@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.saved.SavedNewsFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/savedRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/savedErrorIv"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="55dp"
+        android:visibility="gone"
+        android:contentDescription="@string/no_result_found"
+        android:src="@drawable/ic_error" />
+
+    <TextView
+        android:id="@+id/savedNoneTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/no_result_found"
+        android:textColor="@color/dim_black"
+        android:textSize="20sp" />
+</FrameLayout>

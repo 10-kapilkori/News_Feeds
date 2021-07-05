@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.task.newsapp.ui.entertainment.EntertainmentNewsFragment;
 import com.task.newsapp.ui.home.HomeNewsFragment;
 import com.task.newsapp.ui.politics.PoliticsNewsFragment;
+import com.task.newsapp.ui.saved.SavedNewsFragment;
 import com.task.newsapp.ui.sports.SportsNewsFragment;
 import com.task.newsapp.ui.technology.TechnologyNewsFragment;
 import com.task.newsapp.ui.topheadlines.TopHeadlinesNewsFragment;
@@ -117,6 +118,14 @@ public class HomeActivity extends AppCompatActivity {
                     toolbar.setTitle("Technology");
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
+
+                case R.id.nav_saved:
+                    manager = getSupportFragmentManager();
+                    manager.beginTransaction()
+                            .replace(R.id.fragment_container, new SavedNewsFragment())
+                            .commit();
+                    toolbar.setTitle("Saved News");
+                    drawerLayout.closeDrawer(GravityCompat.START);
 
                 default:
                     break;

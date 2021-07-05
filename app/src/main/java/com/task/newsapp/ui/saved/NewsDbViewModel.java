@@ -1,4 +1,4 @@
-package com.task.newsapp.viewmodel;
+package com.task.newsapp.ui.saved;
 
 import android.app.Application;
 

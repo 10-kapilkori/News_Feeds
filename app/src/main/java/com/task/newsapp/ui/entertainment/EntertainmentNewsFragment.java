@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.EntertainmentAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,11 @@ public class EntertainmentNewsFragment extends Fragment {
     SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
-    List<ArticlesModel> list;
     ProgressBar entertainmentProgressBar;
+
+    List<ArticlesModel> list;
     EntertainmentFragmentViewModel viewModel;
+    NewsDbViewModel newsViewModel;
     EntertainmentAdapter adapter;
 
     @Override
@@ -43,9 +46,12 @@ public class EntertainmentNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.entertainment_swipe_refresh);
         offlineIv = view.findViewById(R.id.entertainmentOfflineIv);
         offlineTv = view.findViewById(R.id.entertainmentOfflineTv);
+
         viewModel = new ViewModelProvider(this).get(EntertainmentFragmentViewModel.class);
+        newsViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+
         list = new ArrayList<>();
-        adapter = new EntertainmentAdapter(getContext(), list);
+        adapter = new EntertainmentAdapter(getContext(), list, newsViewModel);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             checkErrors(s);
