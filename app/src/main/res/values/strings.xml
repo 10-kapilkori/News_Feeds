@@ -118,7 +118,7 @@
     <string name="search_news">Search News</string>
     <string name="default_result">Default Result</string>
     <string name="you_are_offline">You are Offline</string>
-    <string name="no_result_found">No Result Found</string>
+    <string name="no_result_found">No Saved News Found</string>
     <string name="ok">OK</string>
     <string name="close">Close</string>
     <string name="internet">Internet Connection Required</string>

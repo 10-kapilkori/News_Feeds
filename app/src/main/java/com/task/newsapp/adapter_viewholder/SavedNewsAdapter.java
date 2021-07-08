@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.R;
 import com.task.newsapp.entity.NewsEntity;
-import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.List;
 
@@ -20,10 +20,13 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<NewsEntity> list;
+    NewsDbViewModel newsViewModel;
+    NewsEntity entity;
 
-    public SavedNewsAdapter(Context context, List<NewsEntity> list) {
+    public SavedNewsAdapter(Context context, List<NewsEntity> list, NewsDbViewModel newsDbViewModel) {
         this.context = context;
         this.list = list;
+        this.newsViewModel = newsDbViewModel;
     }
 
     public void savedNews(List<NewsEntity> list) {
@@ -53,7 +56,10 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setVisibility(View.GONE);
-        holder.newsDeleteBtn.setVisibility(View.VISIBLE);
+    }
+
+    public NewsEntity getPosition(int position) {
+        return list.get(position);
     }
 
     @Override

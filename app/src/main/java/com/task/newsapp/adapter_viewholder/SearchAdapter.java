@@ -41,7 +41,7 @@ public class SearchAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.search_adapter, parent, false);
+                .inflate(R.layout.custom_adapter, parent, false);
 
         return new NewsViewHolder(view);
     }

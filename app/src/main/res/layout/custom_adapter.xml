@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/news_more_option"
+            android:id="@+id/news_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/news_desc"

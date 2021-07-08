@@ -14,7 +14,7 @@ import com.task.newsapp.R;
 public class NewsViewHolder extends RecyclerView.ViewHolder {
     TextView news_title, news_date, news_author, news_desc;
     ImageView news_img;
-    ImageButton newsDownloadBtn, newsDeleteBtn;
+    ImageButton newsDownloadBtn;
     ProgressBar newsProgressBar;
 
     public NewsViewHolder(@NonNull View itemView) {
@@ -26,7 +26,6 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
         news_desc = itemView.findViewById(R.id.news_desc);
         news_img = itemView.findViewById(R.id.news_image);
         newsProgressBar = itemView.findViewById(R.id.imageProgressBar);
-        newsDownloadBtn = itemView.findViewById(R.id.news_more_option);
-        newsDeleteBtn = itemView.findViewById(R.id.news_delete_btn);
+        newsDownloadBtn = itemView.findViewById(R.id.news_download);
     }
 }

@@ -51,12 +51,15 @@ public class SearchActivity extends AppCompatActivity {
         searchPb = findViewById(R.id.searchProgressBar);
         query_tv = findViewById(R.id.queryTv);
 
+        setSupportActionBar(toolbar);
+        setTitle("");
+
         list = new ArrayList<>();
         queryViewModel = new ViewModelProvider(this).get(QueryViewModel.class);
         newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
         adapter = new SearchAdapter(this, list, newsDbViewModel);
-
-        setSupportActionBar(toolbar);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @SuppressLint("SetTextI18n")
@@ -96,11 +99,6 @@ public class SearchActivity extends AppCompatActivity {
             searchPb.setVisibility(View.GONE);
             checkErrors(s);
         });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        setTitle("");
     }
 
     @Override
