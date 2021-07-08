@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.WorldNewsAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ import java.util.Locale;
 public class WorldNewsFragment extends Fragment {
     private static final String TAG = "WorldNewsFragment";
 
-    WorldFragmentViewModel worldFragmentViewModel;
     RecyclerView worldRecyclerView;
     ProgressBar worldNewsProgressBar;
     SwipeRefreshLayout swipe;
@@ -39,6 +39,8 @@ public class WorldNewsFragment extends Fragment {
     List<ArticlesModel> list;
     WorldNewsAdapter adapter;
     String from, to, error;
+    WorldFragmentViewModel worldFragmentViewModel;
+    NewsDbViewModel newsDbViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,8 +51,9 @@ public class WorldNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.world_swipe_refresh);
 
         list = new ArrayList<>();
-        adapter = new WorldNewsAdapter(getContext(), list);
         worldFragmentViewModel = new ViewModelProvider(this).get(WorldFragmentViewModel.class);
+        newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+        adapter = new WorldNewsAdapter(getContext(), list, newsDbViewModel);
 
         worldFragmentViewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), topHeadlines -> {
             list = topHeadlines.getArticles();

@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
+import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,10 +35,13 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<ArticlesModel> articlesTopHeadlinesModel;
+    NewsEntity entity;
+    NewsDbViewModel newsViewModel;
 
-    public TopHeadlinesAdapter(Context context, List<ArticlesModel> articlesTopHeadlinesModel) {
+    public TopHeadlinesAdapter(Context context, List<ArticlesModel> articlesTopHeadlinesModel, NewsDbViewModel newsViewModel) {
         this.context = context;
         this.articlesTopHeadlinesModel = articlesTopHeadlinesModel;
+        this.newsViewModel = newsViewModel;
     }
 
     public void setUpdatedList(List<ArticlesModel> articlesTopHeadlinesModel) {
@@ -116,6 +121,14 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {
+            entity = new NewsEntity(articlesTopHeadlinesModel.get(position).getTitle(),
+                    articlesTopHeadlinesModel.get(position).getDescription(),
+                    articlesTopHeadlinesModel.get(position).getUrlToImage(),
+                    articlesTopHeadlinesModel.get(position).getUrl(),
+                    articlesTopHeadlinesModel.get(position).getPublishedAt(),
+                    articlesTopHeadlinesModel.get(position).getModel().getName());
+
+            newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
 

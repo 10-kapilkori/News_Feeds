@@ -21,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.TechnologyAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,11 @@ public class TechnologyNewsFragment extends Fragment {
     SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
+
     List<ArticlesModel> list;
     TechnologyAdapter adapter;
     TechnologyFragmentViewModel viewModel;
+    NewsDbViewModel newsDbViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,9 +49,11 @@ public class TechnologyNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.tech_swipe_refresh);
         offlineIv = view.findViewById(R.id.techOfflineIv);
         offlineTv = view.findViewById(R.id.techOfflineTv);
+
         list = new ArrayList<>();
-        adapter = new TechnologyAdapter(getContext(), list);
         viewModel = new ViewModelProvider(this).get(TechnologyFragmentViewModel.class);
+        newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+        adapter = new TechnologyAdapter(getContext(), list, newsDbViewModel);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             techProgressBar.setVisibility(View.GONE);

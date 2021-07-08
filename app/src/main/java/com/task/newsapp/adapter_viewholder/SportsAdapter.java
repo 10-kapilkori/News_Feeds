@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
+import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -32,10 +34,13 @@ public class SportsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<ArticlesModel> sportsList;
+    NewsEntity entity;
+    NewsDbViewModel newsViewModel;
 
-    public SportsAdapter(Context context, List<ArticlesModel> list) {
+    public SportsAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
         this.context = context;
         this.sportsList = list;
+        this.newsViewModel = newsViewModel;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -115,6 +120,14 @@ public class SportsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {
+            entity = new NewsEntity(sportsList.get(position).getTitle(),
+                    sportsList.get(position).getDescription(),
+                    sportsList.get(position).getUrlToImage(),
+                    sportsList.get(position).getUrl(),
+                    sportsList.get(position).getPublishedAt(),
+                    sportsList.get(position).getModel().getName());
+
+            newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
 

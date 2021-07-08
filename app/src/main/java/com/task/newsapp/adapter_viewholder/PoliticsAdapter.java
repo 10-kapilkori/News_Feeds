@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
+import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,10 +35,13 @@ public class PoliticsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<ArticlesModel> politicsModelList;
+    NewsEntity entity;
+    NewsDbViewModel newsViewModel;
 
-    public PoliticsAdapter(Context context, List<ArticlesModel> list) {
+    public PoliticsAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
         this.context = context;
         this.politicsModelList = list;
+        this.newsViewModel = newsViewModel;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -116,6 +121,14 @@ public class PoliticsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {
+            entity = new NewsEntity(politicsModelList.get(position).getTitle(),
+                    politicsModelList.get(position).getDescription(),
+                    politicsModelList.get(position).getUrlToImage(),
+                    politicsModelList.get(position).getUrl(),
+                    politicsModelList.get(position).getPublishedAt(),
+                    politicsModelList.get(position).getModel().getName());
+
+            newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
 

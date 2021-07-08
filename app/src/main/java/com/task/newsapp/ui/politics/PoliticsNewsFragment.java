@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.PoliticsAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,9 +38,11 @@ public class PoliticsNewsFragment extends Fragment {
     SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
+
     List<ArticlesModel> list;
     PoliticsAdapter adapter;
     PoliticsFragmentViewModel politicsViewModel;
+    NewsDbViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,9 +53,11 @@ public class PoliticsNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.politics_swipe_refresh);
         offlineIv = view.findViewById(R.id.politicsOfflineIv);
         offlineTv = view.findViewById(R.id.politicsOfflineTv);
+
         list = new ArrayList<>();
         politicsViewModel = new ViewModelProvider(this).get(PoliticsFragmentViewModel.class);
-        adapter = new PoliticsAdapter(getContext(), list);
+        viewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+        adapter = new PoliticsAdapter(getContext(), list, viewModel);
 
         politicsViewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {
             list = newsModel.getArticles();

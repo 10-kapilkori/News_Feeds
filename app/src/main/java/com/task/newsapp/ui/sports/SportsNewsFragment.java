@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.SportsAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,11 @@ public class SportsNewsFragment extends Fragment {
     SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
+
     List<ArticlesModel> list;
     SportsAdapter adapter;
     SportsFragmentViewModel viewModel;
+    NewsDbViewModel newsDbViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,9 +50,11 @@ public class SportsNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.sports_swipe_refresh);
         offlineIv = view.findViewById(R.id.sportsOfflineIv);
         offlineTv = view.findViewById(R.id.sportsOfflineTv);
+
         list = new ArrayList<>();
-        adapter = new SportsAdapter(getContext(), list);
         viewModel = new ViewModelProvider(this).get(SportsFragmentViewModel.class);
+        newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+        adapter = new SportsAdapter(getContext(), list, newsDbViewModel);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             sportsProgressBar.setVisibility(View.GONE);

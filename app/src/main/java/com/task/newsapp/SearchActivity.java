@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.task.newsapp.adapter_viewholder.SearchAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 import com.task.newsapp.viewmodel.QueryViewModel;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
 
     SearchAdapter adapter;
     QueryViewModel queryViewModel;
+    NewsDbViewModel newsDbViewModel;
     List<ArticlesModel> list;
 
     @Override
@@ -48,9 +50,11 @@ public class SearchActivity extends AppCompatActivity {
         no_result = findViewById(R.id.default_result);
         searchPb = findViewById(R.id.searchProgressBar);
         query_tv = findViewById(R.id.queryTv);
-        queryViewModel = new ViewModelProvider(this).get(QueryViewModel.class);
+
         list = new ArrayList<>();
-        adapter = new SearchAdapter(this, list);
+        queryViewModel = new ViewModelProvider(this).get(QueryViewModel.class);
+        newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
+        adapter = new SearchAdapter(this, list, newsDbViewModel);
 
         setSupportActionBar(toolbar);
 

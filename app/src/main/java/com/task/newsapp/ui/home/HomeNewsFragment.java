@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.NewsAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,17 +33,18 @@ import java.util.Locale;
 public class HomeNewsFragment extends Fragment {
     private static final String TAG = "HomeNewsFragment";
 
-    HomeFragmentViewModel viewModel;
     SwipeRefreshLayout swipe;
     RecyclerView homeRecyclerView;
     ProgressBar progressBar;
     ImageView offlineIv;
     TextView offlineTv;
-    SimpleDateFormat sdf;
-    Calendar cal;
 
+    NewsDbViewModel newsViewModel;
+    HomeFragmentViewModel viewModel;
     List<ArticlesModel> list;
     NewsAdapter adapter;
+    SimpleDateFormat sdf;
+    Calendar cal;
     String from, to;
 
     @Override
@@ -57,9 +59,10 @@ public class HomeNewsFragment extends Fragment {
         swipe = view.findViewById(R.id.home_swipe_refresh);
 
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
+        newsViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
         list = new ArrayList<>();
 
-        adapter = new NewsAdapter(getContext(), list);
+        adapter = new NewsAdapter(getContext(), list, newsViewModel);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {

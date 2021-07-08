@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
+import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.List;
 
@@ -21,10 +23,13 @@ public class SearchAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<ArticlesModel> searchList;
+    NewsEntity entity;
+    NewsDbViewModel newsViewModel;
 
-    public SearchAdapter(Context context, List<ArticlesModel> list) {
+    public SearchAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
         this.context = context;
         this.searchList = list;
+        this.newsViewModel = newsViewModel;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -61,6 +66,14 @@ public class SearchAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {
+            entity = new NewsEntity(searchList.get(position).getTitle(),
+                    searchList.get(position).getDescription(),
+                    searchList.get(position).getUrlToImage(),
+                    searchList.get(position).getUrl(),
+                    searchList.get(position).getPublishedAt(),
+                    searchList.get(position).getModel().getName());
+
+            newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
 

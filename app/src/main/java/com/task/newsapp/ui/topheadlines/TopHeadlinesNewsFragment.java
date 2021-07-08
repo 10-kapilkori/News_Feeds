@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.TopHeadlinesAdapter;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +30,15 @@ import java.util.List;
 public class TopHeadlinesNewsFragment extends Fragment {
     private static final String TAG = "TopHeadlinesNews" + "Fragment";
 
-    TopHeadlinesFragmentViewModel viewModel;
     RecyclerView newsRecyclerView;
     ProgressBar topProgressBar;
     ImageView offlineIv;
     TextView offlineTv;
     SwipeRefreshLayout swipe;
+
     List<ArticlesModel> topHeadlinesModelList;
+    TopHeadlinesFragmentViewModel viewModel;
+    NewsDbViewModel newsDbViewModel;
     TopHeadlinesAdapter adapter;
 
     @Override
@@ -48,8 +51,10 @@ public class TopHeadlinesNewsFragment extends Fragment {
         topProgressBar = view.findViewById(R.id.topProgressBar);
         offlineIv = view.findViewById(R.id.topOfflineIv);
         offlineTv = view.findViewById(R.id.topOfflineTv);
+
         topHeadlinesModelList = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(TopHeadlinesFragmentViewModel.class);
+        newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
 
         viewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), topHeadlinesResponseModel -> {
             topHeadlinesModelList = topHeadlinesResponseModel.getArticles();
@@ -82,7 +87,7 @@ public class TopHeadlinesNewsFragment extends Fragment {
 
         viewModel.makeCall();
 
-        adapter = new TopHeadlinesAdapter(getContext(), topHeadlinesModelList);
+        adapter = new TopHeadlinesAdapter(getContext(), topHeadlinesModelList, newsDbViewModel);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.setAdapter(adapter);
         return view;

@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
+import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.model.ArticlesModel;
+import com.task.newsapp.ui.saved.NewsDbViewModel;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -32,10 +34,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<ArticlesModel> newsModel;
+    NewsDbViewModel newsViewModel;
+    NewsEntity entity;
 
-    public NewsAdapter(Context context, List<ArticlesModel> newsModel) {
+    public NewsAdapter(Context context, List<ArticlesModel> newsModel, NewsDbViewModel newsViewModel) {
         this.context = context;
         this.newsModel = newsModel;
+        this.newsViewModel = newsViewModel;
     }
 
     public void updatedList(List<ArticlesModel> newsModel) {
@@ -114,12 +119,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {
+            entity = new NewsEntity(newsModel.get(position).getTitle(),
+                    newsModel.get(position).getDescription(),
+                    newsModel.get(position).getUrlToImage(),
+                    newsModel.get(position).getUrl(),
+                    newsModel.get(position).getPublishedAt(),
+                    newsModel.get(position).getModel().getName());
+
+            newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
 
         holder.itemView.setOnClickListener(v ->
                 context.startActivity(new Intent(context, DetailsActivity.class).
-                putExtra("url", newsModel.get(position).getUrl().replace("\"", ""))));
+                        putExtra("url", newsModel.get(position).getUrl().replace("\"", ""))));
     }
 
     @Override
