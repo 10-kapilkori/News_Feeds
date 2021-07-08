@@ -109,8 +109,10 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_close)
-            finish();
+        if (item.getItemId() == R.id.menu_close) {
+            finishAfterTransition();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -28,7 +28,10 @@ import com.task.newsapp.ui.world.WorldNewsFragment;
 
 public class HomeActivity extends AppCompatActivity {
     FragmentManager manager;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
     Toolbar toolbar;
+    ActionBarDrawerToggle toggle;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -41,10 +44,10 @@ public class HomeActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.nav_view);
 
-        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
@@ -58,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
-                            .setCustomAnimations(R.animator.enter_anim, R.animator.exit_anim)
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new HomeNewsFragment())
                             .commit();
                     toolbar.setTitle("Home");
@@ -68,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_top_headlines:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new TopHeadlinesNewsFragment())
                             .commit();
                     toolbar.setTitle("Top Headlines");
@@ -77,6 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_world:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new WorldNewsFragment())
                             .commit();
                     toolbar.setTitle("World");
@@ -86,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_politics:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new PoliticsNewsFragment())
                             .commit();
                     toolbar.setTitle("Politics");
@@ -95,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_entertainment:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new EntertainmentNewsFragment())
                             .commit();
                     toolbar.setTitle("Entertainment");
@@ -104,6 +111,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_sports:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new SportsNewsFragment())
                             .commit();
                     toolbar.setTitle("Sports");
@@ -113,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_technology:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new TechnologyNewsFragment())
                             .commit();
                     toolbar.setTitle("Technology");
@@ -122,6 +131,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_saved:
                     manager = getSupportFragmentManager();
                     manager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                             .replace(R.id.fragment_container, new SavedNewsFragment())
                             .commit();
                     toolbar.setTitle("Saved News");
@@ -146,6 +156,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_search:
                 startActivity(new Intent(this, SearchActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             case R.id.action_about:
                 new AlertDialog.Builder(this)

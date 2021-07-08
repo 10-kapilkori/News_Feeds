@@ -1,6 +1,7 @@
 package com.task.newsapp.adapter_viewholder;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -132,7 +133,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
         holder.itemView.setOnClickListener(v ->
                 context.startActivity(new Intent(context, DetailsActivity.class).
-                        putExtra("url", newsModel.get(position).getUrl().replace("\"", ""))));
+                                putExtra("url", newsModel.get(position).getUrl().replace("\"", "")),
+                        ActivityOptions.makeCustomAnimation(context, android.R.anim.fade_in, android.R.anim.fade_out).toBundle()));
     }
 
     @Override

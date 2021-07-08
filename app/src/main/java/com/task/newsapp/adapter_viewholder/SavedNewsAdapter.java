@@ -1,6 +1,8 @@
 package com.task.newsapp.adapter_viewholder;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.task.newsapp.DetailsActivity;
 import com.task.newsapp.R;
 import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.ui.saved.NewsDbViewModel;
@@ -56,6 +59,12 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setVisibility(View.GONE);
+
+        holder.itemView.setOnClickListener(v ->
+                context.startActivity(new Intent(context, DetailsActivity.class).
+                                putExtra("url", list.get(position).getUrl().replace("\"", "")),
+                        ActivityOptions.makeCustomAnimation(context, android.R.anim.fade_in, android.R.anim.fade_out).toBundle()));
+
     }
 
     public NewsEntity getPosition(int position) {
