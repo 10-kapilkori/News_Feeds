@@ -51,22 +51,10 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/abt_developed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/abt_version"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/quicksand_medium"
-        android:text="@string/dev"
-        android:textColor="@color/dim_black"
-        android:textSize="16sp" />
-
-    <TextView
         android:id="@+id/abt_dash"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/abt_developed"
+        android:layout_below="@id/abt_version"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -155,4 +143,15 @@
         android:text="@string/third_link"
         android:textColor="@color/medium_black"
         android:textSize="14sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/okBtn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/abt_third_lib"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="@string/ok" />
 </RelativeLayout>

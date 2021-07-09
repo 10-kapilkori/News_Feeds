@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -159,10 +161,14 @@ public class HomeActivity extends AppCompatActivity {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             case R.id.action_about:
-                new AlertDialog.Builder(this)
-                        .setView(getLayoutInflater().inflate(R.layout.custom_about, null))
-                        .setPositiveButton("Done", (dialog, which) -> dialog.dismiss())
-                        .show();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.custom_about, null);
+                Button okBtn = view.findViewById(R.id.okBtn);
+                alertDialog.setView(view);
+                AlertDialog dialog = alertDialog.create();
+                okBtn.setOnClickListener(v -> dialog.dismiss());
+                dialog.show();
+
                 return true;
             default:
                 return false;

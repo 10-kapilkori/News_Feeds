@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -88,16 +89,22 @@ public class SportsNewsFragment extends Fragment {
         if (error.contains("No address associated with hostname") ||
                 error.contains("Software caused connection abort")) {
 
-            new AlertDialog.Builder(getContext())
-                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_dialog, null))
-                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                    .show();
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View view = getLayoutInflater().inflate(R.layout.error_dialog, null);
+            Button okBtn = view.findViewById(R.id.connectionBtn);
+            builder.setView(view);
+            AlertDialog dialog = builder.create();
+            okBtn.setOnClickListener(v -> dialog.dismiss());
+            dialog.show();
         } else if (error.contains("timeout")) {
-            new AlertDialog.Builder(getContext())
-                    .setView(getActivity().getLayoutInflater().inflate(R.layout.error_timeout, null))
-                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                    .show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View view = getLayoutInflater().inflate(R.layout.error_timeout, null);
+            Button okBtn = view.findViewById(R.id.timeoutBtn);
+            builder.setView(view);
+            AlertDialog dialog = builder.create();
+            okBtn.setOnClickListener(v -> dialog.dismiss());
+            dialog.show();
         }
     }
+
 }
