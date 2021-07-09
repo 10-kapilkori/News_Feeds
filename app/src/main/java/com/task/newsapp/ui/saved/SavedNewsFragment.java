@@ -1,12 +1,10 @@
 package com.task.newsapp.ui.saved;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.SavedNewsAdapter;
 import com.task.newsapp.entity.NewsEntity;
-import com.task.newsapp.model.ArticlesModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SavedNewsFragment extends Fragment {

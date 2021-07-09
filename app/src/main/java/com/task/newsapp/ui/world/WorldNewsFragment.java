@@ -2,21 +2,16 @@ package com.task.newsapp.ui.world;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.WorldNewsAdapter;
@@ -34,12 +29,11 @@ public class WorldNewsFragment extends Fragment {
 
     RecyclerView worldRecyclerView;
     ProgressBar worldNewsProgressBar;
-    SwipeRefreshLayout swipe;
     View view;
 
     List<ArticlesModel> list;
     WorldNewsAdapter adapter;
-    String from, to, error;
+    String from, to;
     WorldFragmentViewModel worldFragmentViewModel;
     NewsDbViewModel newsDbViewModel;
 
@@ -49,7 +43,6 @@ public class WorldNewsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_world_news, container, false);
         worldNewsProgressBar = view.findViewById(R.id.worldProgressBar);
         worldRecyclerView = view.findViewById(R.id.world_recyclerView);
-        swipe = view.findViewById(R.id.world_swipe_refresh);
 
         list = new ArrayList<>();
         worldFragmentViewModel = new ViewModelProvider(this).get(WorldFragmentViewModel.class);
@@ -74,16 +67,6 @@ public class WorldNewsFragment extends Fragment {
         from = String.valueOf(cal.getTime());
 
         worldFragmentViewModel.makeCall(from, to);
-
-        swipe.setOnRefreshListener(() -> {
-            worldFragmentViewModel.makeCall(from, to);
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            new Handler().postDelayed(() -> {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                swipe.setRefreshing(false);
-            }, 2000);
-        });
 
         worldRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         worldRecyclerView.setAdapter(adapter);

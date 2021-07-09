@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/entertainment_swipe_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/entertainmentNewsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    android:layout_height="match_parent"
         tools:context=".ui.entertainment.EntertainmentNewsFragment">
 
         <ProgressBar
             android:id="@+id/entertainmentProgressBar"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:indeterminateTint="#FF6464"
             android:layout_gravity="center"
             android:visibility="visible" />
 
@@ -47,10 +43,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="150dp"
-                android:fontFamily="@font/rajdhani_regular"
+                android:fontFamily="@font/quicksand_regular"
                 android:text="@string/you_are_offline"
                 android:textSize="20sp"
                 android:visibility="gone" />
         </RelativeLayout>
     </FrameLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

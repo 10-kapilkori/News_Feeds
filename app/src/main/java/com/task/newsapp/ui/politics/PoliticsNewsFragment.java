@@ -2,23 +2,18 @@ package com.task.newsapp.ui.politics;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.PoliticsAdapter;
@@ -36,7 +31,6 @@ public class PoliticsNewsFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar politicsProgressBar;
-    SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
 
@@ -48,10 +42,10 @@ public class PoliticsNewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_politics_news, container, false);
         recyclerView = view.findViewById(R.id.politics_recyclerView);
         politicsProgressBar = view.findViewById(R.id.politicsProgressBar);
-        swipe = view.findViewById(R.id.politics_swipe_refresh);
         offlineIv = view.findViewById(R.id.politicsOfflineIv);
         offlineTv = view.findViewById(R.id.politicsOfflineTv);
 
@@ -80,16 +74,6 @@ public class PoliticsNewsFragment extends Fragment {
         cal.add(Calendar.DATE, -1);
         to = sdf.format(Calendar.getInstance().getTime());
         from = String.valueOf(cal.getTime());
-
-        swipe.setOnRefreshListener(() -> {
-            politicsViewModel.makeCall(from, to);
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            new Handler().postDelayed(() -> {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                swipe.setRefreshing(false);
-            }, 2000);
-        });
 
         politicsViewModel.makeCall(from, to);
 

@@ -1,55 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tech_swipe_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.technology.TechnologyNewsFragment">
 
-    <FrameLayout
-        android:id="@+id/technologyNewsFragment"
+    <ProgressBar
+        android:id="@+id/techProgressBar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="#FF6464"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tech_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.technology.TechnologyNewsFragment">
+        android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:id="@+id/techProgressBar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/techOfflineIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="200dp"
+            android:src="@drawable/ic_news_logo"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/techOfflineTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/techOfflineIv"
+            android:layout_alignParentStart="true"
             android:layout_gravity="center"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tech_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/techOfflineIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="155dp"
-                android:layout_marginTop="200dp"
-                android:src="@drawable/ic_news_logo"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/techOfflineTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/techOfflineIv"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="150dp"
-                android:fontFamily="@font/rajdhani_regular"
-                android:text="@string/you_are_offline"
-                android:textSize="20sp"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </FrameLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_marginStart="150dp"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/you_are_offline"
+            android:textSize="20sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</FrameLayout>

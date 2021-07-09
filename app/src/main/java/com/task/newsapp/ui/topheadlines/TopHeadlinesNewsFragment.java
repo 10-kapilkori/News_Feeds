@@ -2,23 +2,19 @@ package com.task.newsapp.ui.topheadlines;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.TopHeadlinesAdapter;
@@ -35,7 +31,6 @@ public class TopHeadlinesNewsFragment extends Fragment {
     ProgressBar topProgressBar;
     ImageView offlineIv;
     TextView offlineTv;
-    SwipeRefreshLayout swipe;
 
     List<ArticlesModel> topHeadlinesModelList;
     TopHeadlinesFragmentViewModel viewModel;
@@ -48,7 +43,6 @@ public class TopHeadlinesNewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_headlines_news, container, false);
 
         newsRecyclerView = view.findViewById(R.id.top_recyclerView);
-        swipe = view.findViewById(R.id.top_swipe_refresh);
         topProgressBar = view.findViewById(R.id.topProgressBar);
         offlineIv = view.findViewById(R.id.topOfflineIv);
         offlineTv = view.findViewById(R.id.topOfflineTv);
@@ -76,16 +70,6 @@ public class TopHeadlinesNewsFragment extends Fragment {
         to = sdf.format(Calendar.getInstance().getTime());
         from = String.valueOf(cal.getTime());
 */
-        swipe.setOnRefreshListener(() -> {
-            viewModel.makeCall();
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            new Handler().postDelayed(() -> {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                swipe.setRefreshing(false);
-            }, 2000);
-        });
-
         viewModel.makeCall();
 
         adapter = new TopHeadlinesAdapter(getContext(), topHeadlinesModelList, newsDbViewModel);

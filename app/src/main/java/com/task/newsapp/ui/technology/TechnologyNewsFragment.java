@@ -2,22 +2,18 @@ package com.task.newsapp.ui.technology;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.TechnologyAdapter;
@@ -32,7 +28,6 @@ public class TechnologyNewsFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar techProgressBar;
-    SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
 
@@ -42,12 +37,11 @@ public class TechnologyNewsFragment extends Fragment {
     NewsDbViewModel newsDbViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_technology_news, container, false);
         recyclerView = view.findViewById(R.id.tech_recyclerView);
         techProgressBar = view.findViewById(R.id.techProgressBar);
-        swipe = view.findViewById(R.id.tech_swipe_refresh);
         offlineIv = view.findViewById(R.id.techOfflineIv);
         offlineTv = view.findViewById(R.id.techOfflineTv);
 
@@ -69,16 +63,6 @@ public class TechnologyNewsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-
-        swipe.setOnRefreshListener(() -> {
-            viewModel.makeCall();
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            new Handler().postDelayed(() -> {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                swipe.setRefreshing(false);
-            }, 2000);
-        });
 
         viewModel.makeCall();
         return view;

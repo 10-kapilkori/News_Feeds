@@ -28,7 +28,6 @@ import java.util.List;
 
 public class EntertainmentNewsFragment extends Fragment {
     RecyclerView recyclerView;
-    SwipeRefreshLayout swipe;
     ImageView offlineIv;
     TextView offlineTv;
     ProgressBar entertainmentProgressBar;
@@ -41,10 +40,10 @@ public class EntertainmentNewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_entertainment_news, container, false);
         recyclerView = view.findViewById(R.id.entertainment_recyclerView);
         entertainmentProgressBar = view.findViewById(R.id.entertainmentProgressBar);
-        swipe = view.findViewById(R.id.entertainment_swipe_refresh);
         offlineIv = view.findViewById(R.id.entertainmentOfflineIv);
         offlineTv = view.findViewById(R.id.entertainmentOfflineTv);
 
@@ -63,16 +62,6 @@ public class EntertainmentNewsFragment extends Fragment {
             list = newsModel.getArticles();
             adapter.updatedList(list);
             entertainmentProgressBar.setVisibility(View.GONE);
-        });
-
-        swipe.setOnRefreshListener(() -> {
-            viewModel.makeCall();
-            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-            new Handler().postDelayed(() -> {
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                swipe.setRefreshing(false);
-            }, 2000);
         });
 
         viewModel.makeCall();
