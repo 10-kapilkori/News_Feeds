@@ -55,7 +55,7 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
         Glide.with(context)
                 .load(list.get(position).getImgUrl())
-                .error(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_empty)
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setVisibility(View.GONE);

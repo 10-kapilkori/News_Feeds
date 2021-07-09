@@ -117,7 +117,7 @@ public class SportsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
         Glide.with(context)
                 .load(sportsList.get(position).getUrlToImage())
-                .error(R.drawable.ic_baseline_image_24)
+                .error(R.drawable.ic_empty)
                 .into(holder.news_img);
 
         holder.newsDownloadBtn.setOnClickListener(v -> {

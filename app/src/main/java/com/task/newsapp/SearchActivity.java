@@ -89,10 +89,13 @@ public class SearchActivity extends AppCompatActivity {
             searchPb.setVisibility(View.GONE);
 
             if (list.size() == 0) {
-                new AlertDialog.Builder(this)
-                        .setView(getLayoutInflater().inflate(R.layout.custom_dialog, null))
-                        .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
-                        .show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.custom_none, null);
+                Button okBtn = view.findViewById(R.id.connectionBtn);
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                okBtn.setOnClickListener(v -> dialog.dismiss());
+                dialog.show();
             }
             adapter.updatedList(list);
         });
