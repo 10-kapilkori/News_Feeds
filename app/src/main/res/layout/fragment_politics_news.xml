@@ -11,7 +11,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="center"
-        android:indeterminateTint="#FF6464"
+        android:indeterminateTint="@color/progress_bar_red"
         android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView

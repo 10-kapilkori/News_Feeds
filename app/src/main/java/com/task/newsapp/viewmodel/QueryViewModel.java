@@ -13,6 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.task.newsapp.MainActivity.API_KEY;
+
 public class QueryViewModel extends ViewModel {
     private static final String TAG = "QueryViewModel";
 
@@ -34,7 +36,7 @@ public class QueryViewModel extends ViewModel {
 
     public void query(String query) {
         API api = new RetrofitInstance().getInstance().create(API.class);
-        Call<NewsModel> call = api.getSearchedNews("a69420c4ab5a41359149947df1bf1340", query, "30");
+        Call<NewsModel> call = api.getSearchedNews(API_KEY, query, "30");
 
         call.enqueue(new Callback<NewsModel>() {
             @Override

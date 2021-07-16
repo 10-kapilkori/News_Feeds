@@ -10,7 +10,7 @@
             android:id="@+id/entertainmentProgressBar"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:indeterminateTint="#FF6464"
+            android:indeterminateTint="@color/progress_bar_red"
             android:layout_gravity="center"
             android:visibility="visible" />
 
