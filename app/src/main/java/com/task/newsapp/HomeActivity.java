@@ -43,106 +43,110 @@ public class HomeActivity extends AppCompatActivity {
         setTitle("Home");
         toolbar = findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
+        if (toolbar != null)
+            setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.setDrawerIndicatorEnabled(true);
-        toggle.syncState();
+        if (toggle != null && drawerLayout != null) {
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.setDrawerIndicatorEnabled(true);
+            toggle.syncState();
+        }
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new HomeNewsFragment()).commit();
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            int id = item.getItemId();
+        if (navigationView != null)
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
 
-            switch (id) {
-                case R.id.nav_home:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new HomeNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Home");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                switch (id) {
+                    case R.id.nav_home:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new HomeNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Home");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_top_headlines:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new TopHeadlinesNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Top Headlines");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_top_headlines:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new TopHeadlinesNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Top Headlines");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_world:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new WorldNewsFragment())
-                            .commit();
-                    toolbar.setTitle("World");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_world:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new WorldNewsFragment())
+                                .commit();
+                        toolbar.setTitle("World");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_politics:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new PoliticsNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Politics");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_politics:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new PoliticsNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Politics");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_entertainment:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new EntertainmentNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Entertainment");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_entertainment:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new EntertainmentNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Entertainment");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_sports:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new SportsNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Sports");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_sports:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new SportsNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Sports");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_technology:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new TechnologyNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Technology");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
+                    case R.id.nav_technology:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new TechnologyNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Technology");
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
-                case R.id.nav_saved:
-                    manager = getSupportFragmentManager();
-                    manager.beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                            .replace(R.id.fragment_container, new SavedNewsFragment())
-                            .commit();
-                    toolbar.setTitle("Saved News");
-                    drawerLayout.closeDrawer(GravityCompat.START);
+                    case R.id.nav_saved:
+                        manager = getSupportFragmentManager();
+                        manager.beginTransaction()
+                                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                                .replace(R.id.fragment_container, new SavedNewsFragment())
+                                .commit();
+                        toolbar.setTitle("Saved News");
+                        drawerLayout.closeDrawer(GravityCompat.START);
 
-                default:
-                    break;
-            }
-            return true;
-        });
+                    default:
+                        break;
+                }
+                return true;
+            });
     }
 
     @Override

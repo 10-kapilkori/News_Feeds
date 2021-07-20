@@ -52,7 +52,9 @@ public class SearchActivity extends AppCompatActivity {
         searchPb = findViewById(R.id.searchProgressBar);
         query_tv = findViewById(R.id.queryTv);
 
-        setSupportActionBar(toolbar);
+        if (toolbar != null)
+            setSupportActionBar(toolbar);
+
         setTitle("");
 
         list = new ArrayList<>();
@@ -62,26 +64,27 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public boolean onQueryTextSubmit(String q) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+        if (searchView != null)
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public boolean onQueryTextSubmit(String q) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
-                queryViewModel.query(q);
-                searchPb.setVisibility(View.VISIBLE);
-                query_tv.setVisibility(View.VISIBLE);
+                    queryViewModel.query(q);
+                    searchPb.setVisibility(View.VISIBLE);
+                    query_tv.setVisibility(View.VISIBLE);
 
-                query_tv.setText("Searched for: " + q);
-                return true;
-            }
+                    query_tv.setText("Searched for: " + q);
+                    return true;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
 
         queryViewModel.getModelMutableLiveData().observe(this, newsModel -> {
             list = newsModel.getArticles();
