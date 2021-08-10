@@ -49,12 +49,10 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-        if (toggle != null && drawerLayout != null) {
-            toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-            drawerLayout.addDrawerListener(toggle);
-            toggle.setDrawerIndicatorEnabled(true);
-            toggle.syncState();
-        }
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        toggle.syncState();
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new HomeNewsFragment()).commit();
 

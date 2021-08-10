@@ -126,7 +126,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     newsModel.get(position).getUrl(),
                     newsModel.get(position).getPublishedAt(),
                     newsModel.get(position).getModel().getName());
-
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();
         });
