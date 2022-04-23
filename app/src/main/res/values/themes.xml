@@ -16,7 +16,17 @@
         <item name="android:textColorHint">@color/white</item>
         <item name="android:editTextColor">@color/white</item>
     </style>
-A
+
+    <style name="EditTextBackground">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ButtonBackground">
+        <item name="cornerSize">50%</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="background">@drawable/edit_text_bg</item>
+    </style>
+
     <style name="Theme.NewsApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

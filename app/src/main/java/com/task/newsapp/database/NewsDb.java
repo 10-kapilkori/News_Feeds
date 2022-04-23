@@ -8,8 +8,9 @@ import androidx.room.RoomDatabase;
 
 import com.task.newsapp.dao.DAO;
 import com.task.newsapp.entity.NewsEntity;
+import com.task.newsapp.entity.UserEntity;
 
-@Database(entities = NewsEntity.class, exportSchema = false, version = 1)
+@Database(entities = {NewsEntity.class, UserEntity.class}, exportSchema = false, version = 2)
 public abstract class NewsDb extends RoomDatabase {
     public static final String db_name = "News_Database";
     public static NewsDb db;

@@ -134,4 +134,17 @@
     <string name="more_options">more options</string>
     <string name="saved_news">Saved News</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="welcome">Welcome,</string>
+    <string name="sign_in_text">Please sign in to continue</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account yet?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_text">Join Us Today</string>
+    <string name="username">Username</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="logout">Logout</string>
 </resources>

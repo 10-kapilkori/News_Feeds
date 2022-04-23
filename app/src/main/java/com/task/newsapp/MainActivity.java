@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = ActivityOptions.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle();
 
         handler.postDelayed(() -> {
-            startActivity(new Intent(this, HomeActivity.class), bundle);
+            startActivity(new Intent(this, SignInActivity.class), bundle);
             finish();
         }, 2000);
     }

@@ -3,11 +3,13 @@ package com.task.newsapp;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
     NavigationView navigationView;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
+    SharedPreferences spf;
+    SharedPreferences.Editor editor;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -42,6 +46,10 @@ public class HomeActivity extends AppCompatActivity {
 
         setTitle("Home");
         toolbar = findViewById(R.id.toolbar);
+        spf = getSharedPreferences("news", MODE_PRIVATE);
+        editor = spf.edit();
+        editor.putString("email", getIntent().getStringExtra("email"));
+        editor.apply();
 
         if (toolbar != null)
             setSupportActionBar(toolbar);
@@ -169,7 +177,12 @@ public class HomeActivity extends AppCompatActivity {
                 AlertDialog dialog = alertDialog.create();
                 okBtn.setOnClickListener(v -> dialog.dismiss());
                 dialog.show();
-
+                return true;
+            case R.id.action_logout:
+                spf.edit().clear().apply();
+                startActivity(new Intent(this, SignInActivity.class));
+                finish();
+                Toast.makeText(this, "Successfully Logged Out", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;
