@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.task.newsapp.entity.NewsEntity;
 import com.task.newsapp.entity.UserEntity;
@@ -18,6 +19,9 @@ public interface DAO {
 
     @Insert
     void insertUser(UserEntity users);
+
+    @Update
+    void updateUser(UserEntity user);
 
     @Delete
     void deleteNews(NewsEntity entity);

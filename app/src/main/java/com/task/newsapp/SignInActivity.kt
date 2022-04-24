@@ -84,6 +84,10 @@ class SignInActivity : AppCompatActivity() {
             newUserCreateBtn.setOnClickListener {
                 startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
             }
+
+            forgotPassBtn.setOnClickListener {
+                startActivity(Intent(this@SignInActivity, PassRecoveryActivity::class.java))
+            }
         }
     }
 }

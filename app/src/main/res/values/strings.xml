@@ -147,4 +147,11 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="logout">Logout</string>
+    <string name="password_recovery">Password Recovery</string>
+    <string name="otp">Enter OTP</string>
+    <string name="generate">Generate</string>
+    <string name="verify">Verify</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="new_password">New Password</string>
+    <string name="reset">Reset</string>
 </resources>

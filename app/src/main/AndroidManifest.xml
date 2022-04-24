@@ -14,6 +14,12 @@
         android:theme="@style/Theme.NewsApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PassRecoveryActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity

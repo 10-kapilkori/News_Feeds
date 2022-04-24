@@ -18,6 +18,10 @@ class UserViewModel(private val dao: DAO) : ViewModel() {
     fun fetchUsers(): LiveData<List<UserEntity>> {
         return dao.allUsers
     }
+
+    fun updateUser(user: UserEntity) {
+        return dao.updateUser(user)
+    }
 }
 
 class UserViewModelFactory(private val dao: DAO) : ViewModelProvider.Factory {
