@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.technology;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class TechnologyNewsFragment extends Fragment {
     TextView offlineTv;
 
     List<ArticlesModel> list;
+    SharedPreferences spf;
     TechnologyAdapter adapter;
     TechnologyFragmentViewModel viewModel;
     NewsDbViewModel newsDbViewModel;
@@ -46,9 +49,14 @@ public class TechnologyNewsFragment extends Fragment {
         offlineTv = view.findViewById(R.id.techOfflineTv);
 
         list = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
         viewModel = new ViewModelProvider(this).get(TechnologyFragmentViewModel.class);
         newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
-        adapter = new TechnologyAdapter(getContext(), list, newsDbViewModel);
+        adapter = new TechnologyAdapter(getContext(), list, newsDbViewModel, email);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             techProgressBar.setVisibility(View.GONE);

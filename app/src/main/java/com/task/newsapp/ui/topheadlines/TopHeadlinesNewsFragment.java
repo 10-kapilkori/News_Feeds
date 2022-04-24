@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.topheadlines;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class TopHeadlinesNewsFragment extends Fragment {
     TextView offlineTv;
 
     List<ArticlesModel> topHeadlinesModelList;
+    SharedPreferences spf;
     TopHeadlinesFragmentViewModel viewModel;
     NewsDbViewModel newsDbViewModel;
     TopHeadlinesAdapter adapter;
@@ -48,6 +51,11 @@ public class TopHeadlinesNewsFragment extends Fragment {
         offlineTv = view.findViewById(R.id.topOfflineTv);
 
         topHeadlinesModelList = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
         viewModel = new ViewModelProvider(this).get(TopHeadlinesFragmentViewModel.class);
         newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
 
@@ -72,7 +80,7 @@ public class TopHeadlinesNewsFragment extends Fragment {
 */
         viewModel.makeCall();
 
-        adapter = new TopHeadlinesAdapter(getContext(), topHeadlinesModelList, newsDbViewModel);
+        adapter = new TopHeadlinesAdapter(getContext(), topHeadlinesModelList, newsDbViewModel, email);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         newsRecyclerView.setAdapter(adapter);
         return view;

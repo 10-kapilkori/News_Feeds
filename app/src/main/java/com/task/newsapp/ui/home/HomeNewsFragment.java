@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.home;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import com.task.newsapp.R;
 import com.task.newsapp.adapter_viewholder.NewsAdapter;
 import com.task.newsapp.model.ArticlesModel;
 import com.task.newsapp.ui.saved.NewsDbViewModel;
+import com.task.newsapp.ui.saved.NewsViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class HomeNewsFragment extends Fragment {
 
     NewsDbViewModel newsViewModel;
     HomeFragmentViewModel viewModel;
+    SharedPreferences spf;
     List<ArticlesModel> list;
     NewsAdapter adapter;
     SimpleDateFormat sdf;
@@ -55,9 +59,15 @@ public class HomeNewsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
         newsViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
-        list = new ArrayList<>();
 
-        adapter = new NewsAdapter(getContext(), list, newsViewModel);
+        list = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
+
+        adapter = new NewsAdapter(getContext(), list, newsViewModel, email);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {

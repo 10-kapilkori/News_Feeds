@@ -38,11 +38,13 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     List<ArticlesModel> articlesTopHeadlinesModel;
     NewsEntity entity;
     NewsDbViewModel newsViewModel;
+    String email;
 
-    public TopHeadlinesAdapter(Context context, List<ArticlesModel> articlesTopHeadlinesModel, NewsDbViewModel newsViewModel) {
+    public TopHeadlinesAdapter(Context context, List<ArticlesModel> articlesTopHeadlinesModel, NewsDbViewModel newsViewModel, String email) {
         this.context = context;
         this.articlesTopHeadlinesModel = articlesTopHeadlinesModel;
         this.newsViewModel = newsViewModel;
+        this.email = email;
     }
 
     public void setUpdatedList(List<ArticlesModel> articlesTopHeadlinesModel) {
@@ -127,7 +129,8 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     articlesTopHeadlinesModel.get(position).getUrlToImage(),
                     articlesTopHeadlinesModel.get(position).getUrl(),
                     articlesTopHeadlinesModel.get(position).getPublishedAt(),
-                    articlesTopHeadlinesModel.get(position).getModel().getName());
+                    articlesTopHeadlinesModel.get(position).getModel().getName(),
+                    email);
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

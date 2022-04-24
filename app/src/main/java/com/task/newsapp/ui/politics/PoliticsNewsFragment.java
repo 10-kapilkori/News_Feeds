@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.politics;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,7 @@ public class PoliticsNewsFragment extends Fragment {
     TextView offlineTv;
 
     List<ArticlesModel> list;
+    SharedPreferences spf;
     PoliticsAdapter adapter;
     PoliticsFragmentViewModel politicsViewModel;
     NewsDbViewModel viewModel;
@@ -50,9 +53,14 @@ public class PoliticsNewsFragment extends Fragment {
         offlineTv = view.findViewById(R.id.politicsOfflineTv);
 
         list = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
         politicsViewModel = new ViewModelProvider(this).get(PoliticsFragmentViewModel.class);
         viewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
-        adapter = new PoliticsAdapter(getContext(), list, viewModel);
+        adapter = new PoliticsAdapter(getContext(), list, viewModel, email);
 
         politicsViewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), newsModel -> {
             list = newsModel.getArticles();

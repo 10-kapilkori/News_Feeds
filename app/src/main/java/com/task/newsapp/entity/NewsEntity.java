@@ -20,14 +20,17 @@ public class NewsEntity {
     String time;
     @ColumnInfo(name = "author")
     String author;
+    @ColumnInfo(name = "email")
+    public String email;
 
-    public NewsEntity(String title, String description, String imgUrl, String url, String time, String author) {
+    public NewsEntity(String title, String description, String imgUrl, String url, String time, String author, String email) {
         this.title = title;
         this.description = description;
         this.imgUrl = imgUrl;
         this.url = url;
         this.time = time;
         this.author = author;
+        this.email = email;
     }
 
     public int getId() {

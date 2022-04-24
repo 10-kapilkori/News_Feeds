@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.world;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class WorldNewsFragment extends Fragment {
     View view;
 
     List<ArticlesModel> list;
+    SharedPreferences spf;
     WorldNewsAdapter adapter;
     String from, to;
     WorldFragmentViewModel worldFragmentViewModel;
@@ -45,9 +48,14 @@ public class WorldNewsFragment extends Fragment {
         worldRecyclerView = view.findViewById(R.id.world_recyclerView);
 
         list = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
         worldFragmentViewModel = new ViewModelProvider(this).get(WorldFragmentViewModel.class);
         newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
-        adapter = new WorldNewsAdapter(getContext(), list, newsDbViewModel);
+        adapter = new WorldNewsAdapter(getContext(), list, newsDbViewModel, email);
 
         worldFragmentViewModel.getModelMutableLiveData().observe(getViewLifecycleOwner(), topHeadlines -> {
             list = topHeadlines.getArticles();

@@ -37,11 +37,13 @@ public class TechnologyAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     List<ArticlesModel> techList;
     NewsEntity entity;
     NewsDbViewModel newsViewModel;
+    String email;
 
-    public TechnologyAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
+    public TechnologyAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel, String email) {
         this.context = context;
         this.techList = list;
         this.newsViewModel = newsViewModel;
+        this.email = email;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -129,7 +131,8 @@ public class TechnologyAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     techList.get(position).getUrlToImage(),
                     techList.get(position).getUrl(),
                     techList.get(position).getPublishedAt(),
-                    techList.get(position).getModel().getName());
+                    techList.get(position).getModel().getName(),
+                    email);
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

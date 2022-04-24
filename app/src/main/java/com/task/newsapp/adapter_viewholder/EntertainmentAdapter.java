@@ -37,11 +37,13 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     NewsEntity entity;
     NewsDbViewModel newsViewModel;
     List<ArticlesModel> entertainmentList;
+    String email;
 
-    public EntertainmentAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
+    public EntertainmentAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel, String email) {
         this.context = context;
         this.entertainmentList = list;
         this.newsViewModel = newsViewModel;
+        this.email = email;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -126,7 +128,8 @@ public class EntertainmentAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     entertainmentList.get(position).getUrlToImage(),
                     entertainmentList.get(position).getUrl(),
                     entertainmentList.get(position).getPublishedAt(),
-                    entertainmentList.get(position).getModel().getName());
+                    entertainmentList.get(position).getModel().getName(),
+                    email);
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

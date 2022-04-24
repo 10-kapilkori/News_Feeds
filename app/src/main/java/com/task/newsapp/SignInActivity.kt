@@ -25,7 +25,7 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val spf = getSharedPreferences("news", MODE_PRIVATE)
+        val spf = getSharedPreferences("News", MODE_PRIVATE)
         val loggedEmail = spf.getString("email", "")
         Log.i(TAG, "onCreate: $loggedEmail")
 

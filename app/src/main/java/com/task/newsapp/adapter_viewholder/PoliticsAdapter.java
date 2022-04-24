@@ -38,11 +38,13 @@ public class PoliticsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     List<ArticlesModel> politicsModelList;
     NewsEntity entity;
     NewsDbViewModel newsViewModel;
+    String email;
 
-    public PoliticsAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel) {
+    public PoliticsAdapter(Context context, List<ArticlesModel> list, NewsDbViewModel newsViewModel, String email) {
         this.context = context;
         this.politicsModelList = list;
         this.newsViewModel = newsViewModel;
+        this.email = email;
     }
 
     public void updatedList(List<ArticlesModel> list) {
@@ -127,7 +129,8 @@ public class PoliticsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     politicsModelList.get(position).getUrlToImage(),
                     politicsModelList.get(position).getUrl(),
                     politicsModelList.get(position).getPublishedAt(),
-                    politicsModelList.get(position).getModel().getName());
+                    politicsModelList.get(position).getModel().getName(),
+                    email);
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

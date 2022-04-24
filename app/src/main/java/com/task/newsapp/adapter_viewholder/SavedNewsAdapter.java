@@ -23,13 +23,11 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     Context context;
     List<NewsEntity> list;
-    NewsDbViewModel newsViewModel;
     NewsEntity entity;
 
-    public SavedNewsAdapter(Context context, List<NewsEntity> list, NewsDbViewModel newsDbViewModel) {
+    public SavedNewsAdapter(Context context, List<NewsEntity> list) {
         this.context = context;
         this.list = list;
-        this.newsViewModel = newsDbViewModel;
     }
 
     public void savedNews(List<NewsEntity> list) {

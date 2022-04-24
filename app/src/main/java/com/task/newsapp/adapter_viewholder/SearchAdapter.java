@@ -72,7 +72,7 @@ public class SearchAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     searchList.get(position).getUrlToImage(),
                     searchList.get(position).getUrl(),
                     searchList.get(position).getPublishedAt(),
-                    searchList.get(position).getModel().getName());
+                    searchList.get(position).getModel().getName(),"");
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

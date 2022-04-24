@@ -34,11 +34,13 @@ public class WorldNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     List<ArticlesModel> newsModel;
     NewsDbViewModel newsViewModel;
     NewsEntity entity;
+    String email;
 
-    public WorldNewsAdapter(Context context, List<ArticlesModel> newsModel, NewsDbViewModel newsViewModel) {
+    public WorldNewsAdapter(Context context, List<ArticlesModel> newsModel, NewsDbViewModel newsViewModel, String email) {
         this.context = context;
         this.newsModel = newsModel;
         this.newsViewModel = newsViewModel;
+        this.email = email;
     }
 
     public void updatedList(List<ArticlesModel> newsModel) {
@@ -129,7 +131,8 @@ public class WorldNewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                     newsModel.get(position).getUrlToImage(),
                     newsModel.get(position).getUrl(),
                     newsModel.get(position).getPublishedAt(),
-                    newsModel.get(position).getModel().getName());
+                    newsModel.get(position).getModel().getName(),
+                    email);
 
             newsViewModel.insertNews(entity);
             Toast.makeText(context, "News Saved", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.sports;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class SportsNewsFragment extends Fragment {
     TextView offlineTv;
 
     List<ArticlesModel> list;
+    SharedPreferences spf;
     SportsAdapter adapter;
     SportsFragmentViewModel viewModel;
     NewsDbViewModel newsDbViewModel;
@@ -46,9 +49,14 @@ public class SportsNewsFragment extends Fragment {
         offlineTv = view.findViewById(R.id.sportsOfflineTv);
 
         list = new ArrayList<>();
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
         viewModel = new ViewModelProvider(this).get(SportsFragmentViewModel.class);
         newsDbViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
-        adapter = new SportsAdapter(getContext(), list, newsDbViewModel);
+        adapter = new SportsAdapter(getContext(), list, newsDbViewModel, email);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             sportsProgressBar.setVisibility(View.GONE);

@@ -1,6 +1,8 @@
 package com.task.newsapp.ui.entertainment;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ public class EntertainmentNewsFragment extends Fragment {
     ImageView offlineIv;
     TextView offlineTv;
     ProgressBar entertainmentProgressBar;
+    SharedPreferences spf;
 
     List<ArticlesModel> list;
     EntertainmentFragmentViewModel viewModel;
@@ -50,8 +53,14 @@ public class EntertainmentNewsFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(EntertainmentFragmentViewModel.class);
         newsViewModel = new ViewModelProvider(this).get(NewsDbViewModel.class);
 
+        String email = "";
+        if (getActivity() != null) {
+            spf = getActivity().getSharedPreferences("News", Context.MODE_PRIVATE);
+            email = spf.getString("email", "");
+        }
+
         list = new ArrayList<>();
-        adapter = new EntertainmentAdapter(getContext(), list, newsViewModel);
+        adapter = new EntertainmentAdapter(getContext(), list, newsViewModel, email);
 
         viewModel.getErrorMutableLiveData().observe(getViewLifecycleOwner(), s -> {
             checkErrors(s);

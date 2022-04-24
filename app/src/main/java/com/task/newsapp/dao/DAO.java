@@ -25,8 +25,8 @@ public interface DAO {
     @Query("SELECT * FROM news_table_1")
     LiveData<List<NewsEntity>> getNews();
 
-//    @Query("SELECT * FROM news_table_1 WHERE email=:email")
-//    LiveData<List<NewsEntity>> getUserSpecificNews(String email);
+    @Query("SELECT * FROM news_table_1 WHERE email=:email")
+    LiveData<List<NewsEntity>> getUserSpecificNews(String email);
 
     @Query("SELECT * FROM users WHERE email=:email AND password=:password")
     LiveData<UserEntity> getUser(String email, String password);

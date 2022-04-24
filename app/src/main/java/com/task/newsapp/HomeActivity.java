@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,10 @@ import com.task.newsapp.ui.technology.TechnologyNewsFragment;
 import com.task.newsapp.ui.topheadlines.TopHeadlinesNewsFragment;
 import com.task.newsapp.ui.world.WorldNewsFragment;
 
+@SuppressLint("NonConstantResourceId")
 public class HomeActivity extends AppCompatActivity {
+    private static final String TAG = "HomeActivity";
+
     FragmentManager manager;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -38,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences spf;
     SharedPreferences.Editor editor;
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +49,12 @@ public class HomeActivity extends AppCompatActivity {
 
         setTitle("Home");
         toolbar = findViewById(R.id.toolbar);
-        spf = getSharedPreferences("news", MODE_PRIVATE);
+        spf = getSharedPreferences("News", MODE_PRIVATE);
         editor = spf.edit();
         editor.putString("email", getIntent().getStringExtra("email"));
         editor.apply();
+
+        Log.i(TAG, "onCreate: " + spf.getString("email", ""));
 
         if (toolbar != null)
             setSupportActionBar(toolbar);
