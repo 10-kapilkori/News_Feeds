@@ -30,7 +30,7 @@ class SignInActivity : AppCompatActivity() {
         Log.i(TAG, "onCreate: $loggedEmail")
 
         if (loggedEmail != "") {
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java).putExtra("email", loggedEmail))
             finish()
         }
 

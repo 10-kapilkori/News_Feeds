@@ -174,6 +174,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
+
             case R.id.action_about:
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                 View view = getLayoutInflater().inflate(R.layout.custom_about, null);
@@ -183,12 +184,14 @@ public class HomeActivity extends AppCompatActivity {
                 okBtn.setOnClickListener(v -> dialog.dismiss());
                 dialog.show();
                 return true;
+
             case R.id.action_logout:
                 spf.edit().clear().apply();
                 startActivity(new Intent(this, SignInActivity.class));
                 finish();
                 Toast.makeText(this, "Successfully Logged Out", Toast.LENGTH_SHORT).show();
                 return true;
+
             default:
                 return false;
         }
